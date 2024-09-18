@@ -1,7 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { InitialState, User } from "../types/types";
+import { Filter, InitialState, User } from "../types/types";
 
-const initialState: InitialState = { users: [], filter: "" };
+const initialState: InitialState = {
+  users: [],
+  filter: { name: "", username: "", email: "", phone: "" },
+};
 
 const usersDataSlice = createSlice({
   name: "usersAPP",
@@ -10,7 +13,7 @@ const usersDataSlice = createSlice({
     syncUsers(state, action: PayloadAction<User[]>) {
       state.users.push(...action.payload);
     },
-    filterUsers(state, action: PayloadAction<string>) {
+    filterUsers(state, action: PayloadAction<Filter>) {
       state.filter = action.payload;
     },
   },
