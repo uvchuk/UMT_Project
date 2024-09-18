@@ -1,11 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-
-type User = {
-  name: string;
-  username: string;
-  email: string;
-  phone: string;
-};
+import { User } from "../types/types";
 
 type ApiResponse = {
   data: User[];
@@ -15,7 +9,7 @@ type ApiResponse = {
 export const usersApi = createApi({
   reducerPath: "usersApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://66e6b77c17055714e58a57a2.mockapi.io",
+    baseUrl: "https://jsonplaceholder.typicode.com",
   }),
   endpoints: (builder) => ({
     fetchUsers: builder.query<ApiResponse, void>({

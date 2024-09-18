@@ -2,20 +2,16 @@ import React, { useEffect } from "react";
 import MUIDataTable from "mui-datatables";
 import { useFetchUsersQuery } from "../../services/UsersAPI";
 import { useDispatch, useSelector } from "react-redux";
-import { selectFilter, selectUsers, syncUsers } from "../../redux/slice";
+import { syncUsers } from "../../redux/slice";
+import { selectUsers } from "../../redux/selectors";
 
 const UsersTable: React.FC = () => {
   const dispatch = useDispatch();
   const users = useSelector(selectUsers);
-
-  console.log("users:", users);
-
-  // const filter = useSelector(selectFilter);
   const { data } = useFetchUsersQuery();
-  // const usersData = data && Array.isArray(data) ? data : [];
 
   useEffect(() => {
-    if (!data) return;
+    if (!data || !Array.isArray(data)) return;
     dispatch(syncUsers(data));
   }, [data, dispatch]);
 

@@ -1,19 +1,20 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { InitialState, User } from "../types/types";
+
+const initialState: InitialState = { users: [], filter: "" };
 
 const usersDataSlice = createSlice({
   name: "usersAPP",
-  initialState: { users: [], filter: "" },
+  initialState,
   reducers: {
-    syncUsers(state, action) {
+    syncUsers(state, action: PayloadAction<User[]>) {
       state.users.push(...action.payload);
     },
-    filterUsers(state, action) {
+    filterUsers(state, action: PayloadAction<string>) {
       state.filter = action.payload;
     },
   },
 });
 
-export const usersReducer = usersDataSlice.reducer;
 export const { syncUsers, filterUsers } = usersDataSlice.actions;
-export const selectUsers = (state) => state.usersAPP.users;
-export const selectFilter = (state) => state.usersAPP.filter;
+export const usersReducer = usersDataSlice.reducer;
